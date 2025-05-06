@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Home
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    .container
+      h1 Ofertas de Empleo
+
+      // Si el usuario no está logueado
+      if !userIsLoggedIn
+        p
+          a(href="/login") Iniciar sesión
+          | o 
+          a(href="/register") Registrarse
+
+      // Si el usuario está logueado
+      if userIsLoggedIn
+        p
+          a(href="/logout") Cerrar sesión
+        p
+          a(href="/favorites") Ver mis favoritos
+
+      // Mostrar las ofertas de empleo
+      each oferta in results
+        .card
+          h3= oferta.title
+          p= oferta.description
+          p País: #{oferta.country}
+          p Salario: #{oferta.salary}
+          
+          if userIsLoggedIn
+            form(action=`/favorites/add/${oferta.id}`, method="POST")
+              button(type="submit") Añadir a favoritos
+
+          

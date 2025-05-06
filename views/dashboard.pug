@@ -1,0 +1,51 @@
+extends layout
+
+block content
+  .admin-dashboard
+    nav.sidebar
+      input#menu-toggle(type="checkbox")
+      label.menu-btn(for="menu-toggle")
+        .bar
+        .bar
+        .bar
+
+      ul.menu
+        li: a(href="/dashboard") Crear anuncio
+        li: a(href="/dashboard/anuncios") Editar anuncios
+        li: a(href="/dashboard/usuarios") Ver usuarios
+
+    .main-content
+      .container
+        h1 Panel de Administración
+
+        //- FORMULARIO PARA NUEVO ANUNCIO
+        h2 Crear nuevo anuncio
+        form(action="/api/ads", method="POST")
+          label(for="title") Título
+          input(type="text", name="title", required)
+
+          label(for="description") Descripción
+          textarea(name="description", required)
+
+          label(for="country") País
+          input(type="text", name="country", required)
+
+          label(for="salary") Salario
+          input(type="text", name="salary", required)
+
+          button(type="submit") Publicar anuncio
+
+        hr
+
+        //- TARJETAS DE ANUNCIOS YA CREADOS
+        h2 Anuncios publicados
+
+        if anuncios && anuncios.length
+          each anuncio in anuncios
+            .card
+              h3= anuncio.title
+              p= anuncio.description
+              p País: #{anuncio.country}
+              p Salario: #{anuncio.salary}
+              if anuncio.link
+                a(href=anuncio.link, target="_blank") Ver fuente original

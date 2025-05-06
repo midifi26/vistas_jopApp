@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/css/style.css")
+    title Sistema de Roles
+  body
+    nav
+      ul
+        if role === 'admin'
+          li: a(href='/dashboard') Panel de Administración
+        else if role === 'user'
+          li: a(href='/user/dashboard') Panel de Usuario
+        li: a(href='/logout') Cerrar sesión
+
+    block content
+
+    script.
+      function toggleMenu() {
+        const menu = document.querySelector('.admin-menu');
+        if (menu) {
+          menu.classList.toggle('open');
+        }
+      }
